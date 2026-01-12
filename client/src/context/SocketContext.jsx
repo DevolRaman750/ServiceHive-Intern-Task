@@ -47,7 +47,7 @@ export const SocketProvider = ({ children }) => {
                     gigTitle: data.gigTitle
                 });
 
-                // Show toast notification
+                //  toast notification
                 toast.success(data.message, {
                     position: 'top-right',
                     autoClose: 5000,

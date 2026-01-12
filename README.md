@@ -255,6 +255,8 @@ npm run dev
   - [x] All other Bids auto-marked as `rejected`
 - [x] **Atomic Updates**: Race-condition safe using `findOneAndUpdate`
 
+> ⚠️ **Note on MongoDB Transactions**: Multi-document transactions are **not available** on MongoDB Atlas Free Tier (M0) as it requires a replica set. This project uses atomic `findOneAndUpdate` operations instead, which provides race-condition safety for the hiring logic without needing transactions.
+
 ### D. API Architecture
 - [x] `POST /api/auth/register` - Register new user
 - [x] `POST /api/auth/login` - Login & set HttpOnly Cookie
