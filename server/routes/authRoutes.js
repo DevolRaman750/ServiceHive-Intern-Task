@@ -3,6 +3,14 @@ const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
+// Cookie options for production (cross-site) and development
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'strict',
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+};
+
 // Register
 router.post('/register', async (req, res) => {
     try {
@@ -14,12 +22,7 @@ router.post('/register', async (req, res) => {
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false, // Set to true in production
-            sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
+        res.cookie('token', token, cookieOptions);
 
         res.status(201).json({ _id: user._id, name: user.name, email: user.email });
     } catch (err) {
@@ -38,12 +41,7 @@ router.post('/login', async (req, res) => {
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false, // Set to true in production
-            sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
+        res.cookie('token', token, cookieOptions);
 
         res.json({ _id: user._id, name: user.name, email: user.email });
     } catch (err) {
@@ -54,7 +52,7 @@ router.post('/login', async (req, res) => {
 
 // Logout
 router.post('/logout', (req, res) => {
-    res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
+    res.cookie('token', '', { ...cookieOptions, expires: new Date(0) });
     res.json({ message: 'Logged out' });
 });
 
