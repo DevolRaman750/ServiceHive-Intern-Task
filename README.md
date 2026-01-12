@@ -10,8 +10,21 @@ A mini-freelance marketplace where **Clients** can post jobs (Gigs) and **Freela
 
 ---
 
+## 🌐 Live Demo
+
+| Service | URL | Platform |
+|---------|-----|----------|
+| **Frontend** | [https://service-hive-intern-task.vercel.app](https://service-hive-intern-task.vercel.app) | Vercel |
+| **Backend + Socket.IO** | [https://servicehive-intern-task.onrender.com](https://servicehive-intern-task.onrender.com) | Render |
+| **Database** | MongoDB Atlas | Cloud Cluster |
+
+> ⚠️ **Note:** The Render free tier may have cold starts (initial request takes ~30s if server was sleeping).
+
+---
+
 ## 📋 Table of Contents
 
+- [Live Demo](#-live-demo)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
